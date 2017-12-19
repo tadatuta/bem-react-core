@@ -42,9 +42,10 @@ export default function({ preset, naming }) {
                         for(let modName in resolvedMods) {
                             if(modName === '__entities') continue;
 
-                            if(realModsEntities[modName]) {
-                                for(let entity in realModsEntities[modName])
-                                    if(resolvedMods[modName]) {
+                            const modsEntities = realModsEntities[modName];
+                            if(modsEntities) {
+                                for(let entity in modsEntities)
+                                    if(resolvedMods[modName] && modsEntities[entity]) {
                                         entity = Entity.parse(entity);
                                         entities.push({
                                             block : entity.block,

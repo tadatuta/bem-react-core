@@ -35,10 +35,13 @@ export default function Core(options) {
         },
         makePredicates = obj =>
             wrapWithFunction(obj,
-                ['addBemClassName', 'tag', 'attrs', 'style', 'content', 'cls', 'mods', 'mix', 'addMix', 'wrap']),
+                ['addBemClassName', 'tag', 'attrs', 'style', 'content', 'cls', 'mix', 'addMix', 'wrap']),
         collectMods = (fields) => {
+            wrapWithFunction(fields, 'mods');
             if(fields.hasOwnProperty('mods')) {
-                const val = fields['mods'];
+                console.log('addBemClassName', fields.block, fields.addBemClassName);
+                const val = fields['mods'],
+                    addBemClassName = fields.addBemClassName;
                 fields['mods'] = function() {
                     // FIXME: @dfilatov
                     const collected = [val, this.__base][0].apply(this, arguments) || {},
@@ -47,7 +50,7 @@ export default function Core(options) {
                     for(let modName in collected) {
                         if(modName === '__entities') continue;
 
-                        (entities[modName] || (entities[modName] = {}))[tokenize(fields)] = true;
+                        (entities[modName] || (entities[modName] = {}))[tokenize(fields)] = addBemClassName === false ? false : true;
                     }
 
                     return collected;
@@ -234,8 +237,8 @@ export default function Core(options) {
 
             validateDecl(fields);
             fixHooks(fields);
+            collectMods(fields);
             makePredicates(fields);
-
 
             const key = bemName(fields),
                 entity = getEntity(key),
@@ -243,7 +246,6 @@ export default function Core(options) {
                 entityDecls = entity.decls || (entity.decls = []),
                 declaredBases = entity.declaredBases || (entity.declaredBases = {});
 
-            collectMods(fields);
 
             base && (Array.isArray(base) ? base : [base]).forEach(({ displayName }) => {
                 if(!declaredBases[displayName]) {
@@ -266,6 +268,7 @@ export default function Core(options) {
             validateDecl(fields);
 
             fixHooks(fields);
+            collectMods(fields);
             makePredicates(fields);
 
             const entity = getEntity(bemName(fields));

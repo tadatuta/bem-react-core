@@ -350,7 +350,17 @@ describe('Inherited block should have proper CSS class', () => {
             .toBe('SimpleBlock SimpleInheritedBlock');
     });
 
-    it('In case of declared modifiers', () => {
+    it('In case of prevent inherited class', () => {
+        expect(getClassName(<SimpleInheritedBlock/>))
+            .toBe('SimpleInheritedBlock');
+    });
+
+    it('In case of inherited modifiers without declared self', () => {
+        expect(getClassName(<SimpleInheritedBlock theme="regular"/>))
+            .toBe('SimpleBlock Stylable SimpleInheritedBlock Stylable_theme_regular SimpleInheritedBlock_theme_regular');
+    });
+
+    it('In case of extended modifiers', () => {
         expect(getClassName(<InheritedBlock/>))
             .toBe('MyBlock InheritedBlock MyBlock_a' +
                 ' InheritedBlock_a MyBlock_b_1 InheritedBlock_b_1 InheritedBlock_inInheritedBlock');
