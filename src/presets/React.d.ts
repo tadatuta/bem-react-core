@@ -3,6 +3,7 @@ declare module 'bem-react-core' {
 
     type Props = React.ClassAttributes<Object>;
     type ReactClass = React.ComponentClass;
+    type ReactElement = React.ReactElement;
     type ObjectMode = ((props: Props, state: object) => object) | object;
     type Content = null | string | number | JSX.Element;
     type MultipleContent = Array<Content>;
@@ -27,7 +28,7 @@ declare module 'bem-react-core' {
 
     interface Block {
         block: string;
-        tag?: string;
+        tag?: ((props: Props, state: object) => string) | string;
         cls?: ((props: Props, state: object) => string) | string;
         addBemClassName?: ((props: Props, state: object) => boolean) | boolean;
         style?: ObjectMode;
@@ -37,7 +38,7 @@ declare module 'bem-react-core' {
         addMix?: Mix | ((props: Props, state: object) => Mix);
         content?: ((props: Props, state: object) => Content | MultipleContent) | Content | MultipleContent;
         replace?: ((props: Props, state: object) => Replaceble) | Replaceble;
-        wrap?(props: Props, state: object, klass: ReactClass): Content;
+        wrap?(props: Props, state: object, component: ReactElement): Content;
         willInit?(props: Props): void;
     }
 
