@@ -1,6 +1,6 @@
 {
   "name": "bem-react-core",
-  "version": "1.0.0-rc.10",
+  "version": "2.0.0-alfa.2",
   "description": "BEM React Core",
   "repository": {
     "url": "git://github.com/bem/bem-react-core.git",
@@ -10,7 +10,8 @@
     "bem",
     "core"
   ],
-  "main": "lib/index.js",
+  "main": "lib/core.js",
+  "typings": "lib/core.d.ts",
   "files": [
     "lib",
     "umd"
@@ -22,11 +23,11 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@bem/sdk.naming.entity.stringify": "1.0.0"
+    "@bem/sdk.naming.entity.stringify": "1.0.0",
+    "@bem/sdk.naming.presets": "0.0.6",
+    "@bem/sdk.entity-name": "0.2.4"
   },
   "devDependencies": {
-    "@bem/sdk.entity-name": "0.2.4",
-    "@bem/sdk.naming.presets": "0.0.6",
     "@types/enzyme": "3.1.9",
     "@types/jest": "22.2.2",
     "@types/react": "16.3.2",
