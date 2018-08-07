@@ -166,7 +166,7 @@ export function bemjsonStringify(namingPreset: INamingConvention) {
 }
 /* tslint:enable:no-shadowed-variable */
 
-const { Provider, Consumer } = createContext('block');
+const { Provider, Consumer } = createContext('unknown');
 
 export type ContextComponent =
     | ReactElement<ProviderProps<string>>
