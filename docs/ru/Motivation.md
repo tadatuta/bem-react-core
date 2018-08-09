@@ -152,18 +152,10 @@ class Button extends React.Component {
     render() {
         const props = this.props;
         const classNames = ['Button'];
-        if (props.theme === 'normal' && props.size === 's') {
-            classNames.push("Button_theme_normal");
-            classNames.push("Button_size_s");
-            return <button className={classNames.join(' ')}>Click me</button>;
-        } else if (props.theme === 'default' && props.size === 'm') {
-            classNames.push("Button_theme_default");
-            classNames.push("Button_size_m");
-            return <button className={classNames.join(' ')}>Click me</button>;
-        }  else {
-            return <button className={classNames.join(' ')}>Click me</button>;
-        }
-    
+        if (props.theme) classNames.push('Button_theme_' + props.theme);
+        if (props.size) classNames.push('Button_size_' + props.size);
+
+        return <button className={classNames.join(' ')}>Click me</button>;
     }
 }
 
